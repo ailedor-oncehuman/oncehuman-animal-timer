@@ -1,7 +1,8 @@
 {
-  "name": "ONCE HUMAN 動物繁殖タイマー",
+  "name": "ONCE HUMAN 動物繁殖タイマー Ver4",
   "short_name": "繁殖タイマー",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#02060b",
   "theme_color": "#02060b",
@@ -9,7 +10,8 @@
     {
       "src": "icon.png",
       "sizes": "1024x1024",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
