@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>ONCE HUMAN 動物繁殖タイマー Ver4</title>
+<title>ONCE HUMAN 動物繁殖タイマー Ver7</title>
 <meta name="theme-color" content="#02060b" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="繁殖タイマー" />
@@ -12,56 +12,67 @@
 <link rel="manifest" href="manifest.webmanifest" />
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--c:#00f6ff;--p:#ff2aa3;--v:#b500ff;--bg:#02060b}
-html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% -10%,rgba(0,246,255,.18),transparent 34%),radial-gradient(circle at 50% 110%,rgba(181,0,255,.25),transparent 40%),#02060b;color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
-body{display:flex;justify-content:center;padding:14px 8px 28px}
-.app{width:min(440px,100%)}
+:root{--c:#00f6ff;--p:#ff2aa3;--v:#b500ff;--g:#ffe45e;--bg:#02060b}
+html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% -10%,rgba(0,246,255,.22),transparent 34%),radial-gradient(circle at 50% 115%,rgba(181,0,255,.28),transparent 42%),#02060b;color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+body{display:flex;justify-content:center;padding:14px 8px 28px;overflow-x:hidden}
+.app{width:min(450px,100%)}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 3px 12px}
-.brand{font-weight:1000;letter-spacing:6px;color:var(--c);text-shadow:0 0 16px rgba(0,246,255,.9);font-size:15px}
-.top-actions{display:flex;gap:7px}
+.brand{font-weight:1000;letter-spacing:5px;color:var(--c);text-shadow:0 0 16px rgba(0,246,255,.95);font-size:14px;white-space:nowrap}
+.top-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
 button,input,select{font:inherit}
 button{cursor:pointer;border:0}
-.neon-btn{border:1px solid rgba(0,246,255,.7);background:rgba(0,246,255,.08);color:#dfffff;border-radius:12px;padding:9px 10px;font-weight:1000;font-size:12px;letter-spacing:1px;box-shadow:0 0 14px rgba(0,246,255,.25),inset 0 0 10px rgba(0,246,255,.1)}
-.neon-btn.pink{border-color:rgba(255,42,163,.75);background:rgba(255,42,163,.1);color:#ffd3ea;box-shadow:0 0 14px rgba(255,42,163,.28)}
-.hero{position:relative;overflow:hidden;border:2px solid rgba(0,246,255,.7);border-radius:25px;min-height:760px;padding:24px 14px 16px;box-shadow:0 0 28px rgba(0,246,255,.38),inset 0 0 32px rgba(0,246,255,.18);background-image:linear-gradient(rgba(0,20,33,.12),rgba(30,0,45,.2)),url("IMG_5905.jpeg");background-size:cover;background-position:center}
+.neon-btn{border:1px solid rgba(0,246,255,.72);background:rgba(0,246,255,.08);color:#dfffff;border-radius:12px;padding:9px 10px;font-weight:1000;font-size:12px;letter-spacing:1px;box-shadow:0 0 14px rgba(0,246,255,.28),inset 0 0 10px rgba(0,246,255,.1)}
+.neon-btn.pink{border-color:rgba(255,42,163,.78);background:rgba(255,42,163,.1);color:#ffd3ea;box-shadow:0 0 14px rgba(255,42,163,.3)}
+.neon-btn.gold{border-color:rgba(255,228,94,.85);background:rgba(255,228,94,.12);color:#fff3a8;box-shadow:0 0 16px rgba(255,228,94,.32)}
+.hero{position:relative;overflow:hidden;border:2px solid rgba(0,246,255,.72);border-radius:25px;min-height:780px;padding:22px 14px 16px;box-shadow:0 0 30px rgba(0,246,255,.42),inset 0 0 34px rgba(0,246,255,.19);background-image:linear-gradient(rgba(0,20,33,.18),rgba(30,0,45,.28)),url("wolf.png");background-size:cover;background-position:center}
 .hero.no-bg{background-image:linear-gradient(145deg,#051823,#250034)!important}
-.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(0,246,255,.13),transparent 26%,rgba(255,42,163,.13) 78%,transparent),linear-gradient(to bottom,rgba(0,10,18,.22),rgba(45,0,60,.3)),radial-gradient(circle at 50% 55%,transparent 0 27%,rgba(0,0,0,.22) 78%);z-index:0}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(0,246,255,.14),transparent 26%,rgba(255,42,163,.15) 78%,transparent),linear-gradient(to bottom,rgba(0,10,18,.28),rgba(45,0,60,.36)),radial-gradient(circle at 50% 55%,transparent 0 26%,rgba(0,0,0,.24) 78%);z-index:0}
 .hero:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:100% 4px;opacity:.22;z-index:1;pointer-events:none}
 .inner{position:relative;z-index:2}
-.title{text-align:center;font-size:34px;line-height:1.06;font-weight:1000;color:#eaffff;text-shadow:0 0 18px rgba(0,246,255,.9);margin:4px 0 14px}
-.name-box{display:grid;grid-template-columns:1fr auto;gap:8px;margin:0 0 13px}
-.name-box input{width:100%;border:1px solid rgba(0,246,255,.65);border-radius:14px;background:rgba(0,18,28,.82);color:#fff;padding:12px 13px;font-weight:900;box-shadow:inset 0 0 12px rgba(0,246,255,.12)}
-.status{width:88%;margin:0 auto 16px;border:2px solid rgba(255,42,163,.78);background:rgba(255,42,163,.13);border-radius:999px;padding:12px;text-align:center;font-weight:1000;letter-spacing:2px;color:#ffd1ec;box-shadow:0 0 22px rgba(255,42,163,.58),inset 0 0 14px rgba(255,42,163,.2)}
-.master{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.master .box,.mini{border:2px solid rgba(0,246,255,.72);border-radius:20px;background:rgba(0,246,255,.2);display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 0 20px rgba(0,246,255,.34),inset 0 0 22px rgba(0,246,255,.18);backdrop-filter:blur(2px)}
-.master .box{height:112px}
-.num{font-size:60px;line-height:.86;font-weight:1000;color:#eaffff;text-shadow:0 0 18px rgba(0,246,255,.92);font-variant-numeric:tabular-nums}
-.label{margin-top:9px;font-size:12px;font-weight:1000;letter-spacing:3px;color:#d9ffff}
+.title{text-align:center;font-size:33px;line-height:1.06;font-weight:1000;color:#eaffff;text-shadow:0 0 18px rgba(0,246,255,.95);margin:2px 0 12px}
+.name-box{display:grid;grid-template-columns:1fr auto;gap:8px;margin:0 0 12px}
+.name-box input{width:100%;border:1px solid rgba(0,246,255,.68);border-radius:14px;background:rgba(0,18,28,.86);color:#fff;padding:12px 13px;font-weight:900;box-shadow:inset 0 0 12px rgba(0,246,255,.12)}
+.status{width:90%;margin:0 auto 14px;border:2px solid rgba(255,42,163,.80);background:rgba(255,42,163,.13);border-radius:999px;padding:11px;text-align:center;font-weight:1000;letter-spacing:2px;color:#ffd1ec;box-shadow:0 0 22px rgba(255,42,163,.60),inset 0 0 14px rgba(255,42,163,.2)}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 0 12px}
+.stat{border:1px solid rgba(0,246,255,.55);border-radius:15px;background:rgba(0,18,28,.72);padding:9px 7px;text-align:center;box-shadow:0 0 12px rgba(0,246,255,.18)}
+.stat b{display:block;font-size:21px;color:#eaffff;text-shadow:0 0 12px var(--c);font-variant-numeric:tabular-nums}
+.stat span{font-size:10px;color:#cfffff;font-weight:900;letter-spacing:1px}
+.master{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:13px}
+.master .box,.mini{border:2px solid rgba(0,246,255,.72);border-radius:20px;background:rgba(0,246,255,.20);display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 0 20px rgba(0,246,255,.34),inset 0 0 22px rgba(0,246,255,.18);backdrop-filter:blur(2px)}
+.master .box{height:105px}
+.num{font-size:56px;line-height:.86;font-weight:1000;color:#eaffff;text-shadow:0 0 18px rgba(0,246,255,.92);font-variant-numeric:tabular-nums}
+.label{margin-top:8px;font-size:11px;font-weight:1000;letter-spacing:3px;color:#d9ffff}
 .fields{display:flex;flex-direction:column;gap:12px}
-.field{border:2px solid rgba(181,0,255,.82);border-radius:22px;background:rgba(70,0,120,.30);box-shadow:0 0 22px rgba(181,0,255,.58),inset 0 0 22px rgba(181,0,255,.16);padding:13px;backdrop-filter:blur(2px)}
+.field{border:2px solid rgba(181,0,255,.84);border-radius:22px;background:rgba(70,0,120,.32);box-shadow:0 0 24px rgba(181,0,255,.60),inset 0 0 22px rgba(181,0,255,.16);padding:13px;backdrop-filter:blur(2px)}
 .field-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
 .field-title{font-weight:1000;font-size:19px;text-shadow:0 0 12px rgba(255,255,255,.35)}
-.badge{border:1px solid rgba(0,246,255,.65);border-radius:999px;background:rgba(0,246,255,.12);padding:5px 9px;font-size:12px;font-weight:900;color:#cfffff}
-.animals{display:grid;grid-template-columns:1fr;gap:7px;margin-bottom:10px}
-select{width:100%;border-radius:13px;border:1px solid rgba(0,246,255,.65);background:rgba(0,18,28,.88);color:white;padding:10px;font-size:14px;font-weight:800;box-shadow:0 0 11px rgba(0,246,255,.16)}
-.time-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.mini{height:78px;border-color:rgba(220,70,255,.84);background:rgba(155,0,255,.34);box-shadow:0 0 19px rgba(220,0,255,.76),inset 0 0 18px rgba(255,255,255,.08)}
-.small-num{font-size:38px;line-height:.86;font-weight:1000;text-shadow:0 0 14px rgba(255,255,255,.45);font-variant-numeric:tabular-nums}
+.badge{border:1px solid rgba(0,246,255,.65);border-radius:999px;background:rgba(0,246,255,.12);padding:5px 9px;font-size:12px;font-weight:900;color:#cfffff;white-space:nowrap}
+.animal-row{display:grid;grid-template-columns:56px 1fr;gap:9px;align-items:center;margin-bottom:7px}
+.thumb{width:56px;height:56px;border-radius:15px;object-fit:cover;border:1px solid rgba(0,246,255,.7);box-shadow:0 0 13px rgba(0,246,255,.28)}
+select{width:100%;border-radius:13px;border:1px solid rgba(0,246,255,.65);background:rgba(0,18,28,.9);color:white;padding:10px;font-size:14px;font-weight:800;box-shadow:0 0 11px rgba(0,246,255,.16)}
+.time-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.mini{height:76px;border-color:rgba(220,70,255,.84);background:rgba(155,0,255,.34);box-shadow:0 0 19px rgba(220,0,255,.76),inset 0 0 18px rgba(255,255,255,.08)}
+.small-num{font-size:36px;line-height:.86;font-weight:1000;text-shadow:0 0 14px rgba(255,255,255,.45);font-variant-numeric:tabular-nums}
 .controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .controls button{border-radius:12px;border:1px solid rgba(0,246,255,.7);background:rgba(0,246,255,.12);color:#dfffff;padding:10px 4px;font-weight:1000;letter-spacing:1px;box-shadow:0 0 14px rgba(0,246,255,.26)}
 .controls button:nth-child(2){border-color:rgba(255,42,163,.72);background:rgba(255,42,163,.12);color:#ffd5ec}
-.history{margin-top:12px;border:1px solid rgba(0,246,255,.45);border-radius:18px;background:rgba(0,18,28,.62);padding:12px;max-height:180px;overflow:auto}
+.history{margin-top:12px;border:1px solid rgba(0,246,255,.45);border-radius:18px;background:rgba(0,18,28,.66);padding:12px;max-height:210px;overflow:auto}
 .history h3{margin:0 0 8px;font-size:15px;color:#cfffff}
 .history-item{font-size:12px;line-height:1.5;border-top:1px solid rgba(255,255,255,.12);padding:7px 0;color:#eee}
+.history-item.rare{color:#fff3a8;text-shadow:0 0 8px rgba(255,228,94,.5)}
 .effect{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.35);z-index:99;pointer-events:none}
 .effect.show{display:flex}
-.effect-core{width:260px;height:260px;border-radius:50%;border:3px solid var(--c);box-shadow:0 0 30px var(--c),0 0 70px var(--p),inset 0 0 50px var(--v);animation:burst 1.1s ease-out forwards;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:1000;font-size:24px;text-shadow:0 0 16px #fff}
-@keyframes burst{0%{transform:scale(.2) rotate(0);opacity:0}40%{opacity:1}100%{transform:scale(1.35) rotate(180deg);opacity:0}}
+.effect-core{width:270px;height:270px;border-radius:50%;border:3px solid var(--c);box-shadow:0 0 30px var(--c),0 0 70px var(--p),inset 0 0 50px var(--v);animation:burst 1.15s ease-out forwards;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:1000;font-size:24px;text-shadow:0 0 16px #fff}
+.effect-core.rare{border-color:var(--g);box-shadow:0 0 35px var(--g),0 0 90px var(--p),inset 0 0 60px var(--g);color:#fff3a8}
+@keyframes burst{0%{transform:scale(.2) rotate(0);opacity:0}40%{opacity:1}100%{transform:scale(1.38) rotate(180deg);opacity:0}}
 .flash{animation:flash .8s infinite alternate}
-@keyframes flash{from{filter:brightness(1)}to{filter:brightness(1.35) saturate(1.25)}}
-.gacha{animation:gacha .55s ease-in-out 4}
+@keyframes flash{from{filter:brightness(1)}to{filter:brightness(1.38) saturate(1.28)}}
+.gacha{animation:gacha .55s ease-in-out 5}
 @keyframes gacha{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px) rotate(-1deg)}75%{transform:translateX(8px) rotate(1deg)}}
-@media(max-width:380px){.title{font-size:30px}.num{font-size:52px}.master .box{height:100px}.field-title{font-size:17px}}
+.particle{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c);z-index:98;pointer-events:none;animation:particle 1.1s ease-out forwards}
+.particle.rare{background:var(--g);box-shadow:0 0 14px var(--g)}
+@keyframes particle{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(.2)}}
+@media(max-width:380px){.title{font-size:29px}.num{font-size:50px}.master .box{height:98px}.field-title{font-size:17px}.brand{font-size:12px;letter-spacing:3px}.neon-btn{font-size:11px;padding:8px}}
 </style>
 </head>
 <body>
@@ -70,22 +81,27 @@ select{width:100%;border-radius:13px;border:1px solid rgba(0,246,255,.65);backgr
   <div class="topbar">
     <div class="brand">ONCE HUMAN</div>
     <div class="top-actions">
+      <button class="neon-btn" id="notifyBtn" onclick="enableNotify()">NOTIFY</button>
       <button class="neon-btn" id="soundBtn" onclick="enableSound()">SOUND</button>
-      <button class="neon-btn" id="bgBtn" onclick="toggleBg()">BG ON</button>
-      <button class="neon-btn pink" onclick="clearAll()">CLEAR</button>
+      <button class="neon-btn pink" id="bgBtn" onclick="toggleBg()">BG ON</button>
+      <button class="neon-btn" onclick="clearAll()">CLEAR</button>
     </div>
   </div>
 
   <section class="hero" id="hero">
     <div class="inner">
-      <div class="title">動物繁殖<br>タイマー Ver4</div>
-
+      <div class="title">動物繁殖<br>タイマー Ver7</div>
       <div class="name-box">
         <input id="tamerName" placeholder="テイマー名を入力" oninput="saveState()" />
-        <button class="neon-btn pink" onclick="gacha()">GACHA</button>
+        <button class="neon-btn gold" onclick="gacha()">GACHA</button>
       </div>
-
       <div class="status" id="status">24時間タイマー管理中</div>
+
+      <div class="stats">
+        <div class="stat"><b id="completeCount">0</b><span>完了数</span></div>
+        <div class="stat"><b id="activeCount">0</b><span>稼働中</span></div>
+        <div class="stat"><b id="rareCount">0</b><span>レア演出</span></div>
+      </div>
 
       <div class="master">
         <div class="box"><div class="num" id="nearestH">24</div><div class="label">HOUR</div></div>
@@ -93,230 +109,191 @@ select{width:100%;border-radius:13px;border:1px solid rgba(0,246,255,.65);backgr
       </div>
 
       <div class="fields" id="fields"></div>
-
-      <div class="history">
-        <h3>繁殖履歴</h3>
-        <div id="historyList">まだ履歴はありません。</div>
-      </div>
+      <div class="history"><h3>繁殖履歴・統計</h3><div id="historyList">まだ履歴はありません。</div></div>
     </div>
   </section>
 </main>
 
 <script>
-const BREED_SECONDS = 24 * 60 * 60;
-const animals = [
-  ["IMG_5905.jpeg","オオカミ"],["IMG_5904.jpeg","ヒョウ"],["IMG_5899.jpeg","ホッキョクグマ"],
-  ["IMG_5905.jpeg","クマ"],["IMG_5904.jpeg","イノシシ"],["IMG_5899.jpeg","バッファロー"],
-  ["IMG_5905.jpeg","ワニ"],["IMG_5904.jpeg","フラミンゴ"],["IMG_5899.jpeg","ウミガメ"],
-  ["IMG_5905.jpeg","ワニガメ"],["IMG_5904.jpeg","キツネ"],["IMG_5899.jpeg","スノーフォックス"],
-  ["IMG_5905.jpeg","ウサギ"],["IMG_5904.jpeg","カピバラ"],["IMG_5899.jpeg","シカ"],["IMG_5905.jpeg","ヒツジ"]
+const BREED_SECONDS=24*60*60;
+const animals=[
+ {file:"wolf.png",name:"オオカミ"},
+ {file:"leopard.png",name:"ヒョウ"},
+ {file:"bear.png",name:"クマ"},
+ {file:"boar.png",name:"イノシシ"},
+ {file:"buffalo.png",name:"バッファロー"},
+ {file:"polarbear.png",name:"ホッキョクグマ"},
+ {file:"rabbit.png",name:"ウサギ"},
+ {file:"deer.png",name:"シカ"},
+ {file:"sheep.png",name:"ヒツジ"},
+ {file:"capybara.png",name:"カピバラ"},
+ {file:"fox.png",name:"キツネ"},
+ {file:"snowfox.png",name:"スノーフォックス"},
+ {file:"flamingo.png",name:"フラミンゴ"},
+ {file:"crocodile.png",name:"ワニ"},
+ {file:"seaturtle.png",name:"ウミガメ"},
+ {file:"alligator_turtle.png",name:"ワニガメ"}
 ];
-let data = {
-  tamerName:"",
-  bgOn:true,
-  sound:false,
-  fields:[
-    {name:"繁殖場1",end:null,animals:["オオカミ","","","",""]},
-    {name:"繁殖場2",end:null,animals:["ヒョウ","","","",""]},
-    {name:"繁殖場3",end:null,animals:["ホッキョクグマ","","","",""]}
-  ],
-  history:[]
+let data={
+ tamerName:"",bgOn:true,sound:false,completeCount:0,rareCount:0,animalStats:{},
+ fields:[
+  {name:"繁殖場1",end:null,animals:["オオカミ","","","",""]},
+  {name:"繁殖場2",end:null,animals:["ヒョウ","","","",""]},
+  {name:"繁殖場3",end:null,animals:["ホッキョクグマ","","","",""]}
+ ],
+ history:[]
 };
-let audioCtx=null, timer=null;
-
+let audioCtx=null,timer=null;
 function loadState(){
-  const saved=localStorage.getItem("oncehumanTimerV4");
-  if(saved){ try{ data={...data,...JSON.parse(saved)} }catch(e){} }
-  document.getElementById("tamerName").value=data.tamerName||"";
-  document.getElementById("bgBtn").textContent=data.bgOn?"BG ON":"BG OFF";
-  document.getElementById("soundBtn").textContent=data.sound?"SOUND ON":"SOUND";
-  render();
-  applyBg();
+ const saved=localStorage.getItem("oncehumanTimerVer7");
+ if(saved){try{data={...data,...JSON.parse(saved)}}catch(e){}}
+ document.getElementById("tamerName").value=data.tamerName||"";
+ document.getElementById("bgBtn").textContent=data.bgOn?"BG ON":"BG OFF";
+ document.getElementById("soundBtn").textContent=data.sound?"SOUND ON":"SOUND";
+ if("Notification" in window && Notification.permission==="granted")document.getElementById("notifyBtn").textContent="NOTIFY ON";
+ render();applyBg();updateDisplay();
 }
-function saveState(){
-  data.tamerName=document.getElementById("tamerName").value;
-  localStorage.setItem("oncehumanTimerV4",JSON.stringify(data));
-}
+function saveState(){data.tamerName=document.getElementById("tamerName").value;localStorage.setItem("oncehumanTimerVer7",JSON.stringify(data))}
 function pad(n){return String(n).padStart(2,"0")}
-function fmt(sec){
-  sec=Math.max(0,Math.floor(sec));
-  const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60;
-  return {h,m,s};
-}
-function animalOptions(selected){
-  let html='<option value="">未セット</option>';
-  animals.forEach(a=>{html+=`<option value="${a[1]}" ${a[1]===selected?'selected':''}>${a[1]}</option>`});
-  return html;
-}
+function fmt(sec){sec=Math.max(0,Math.floor(sec));return{h:Math.floor(sec/3600),m:Math.floor((sec%3600)/60),s:sec%60}}
+function getAnimal(name){return animals.find(a=>a.name===name)||animals[0]}
+function animalOptions(selected){let html='<option value="">未セット</option>';animals.forEach(a=>html+=`<option value="${a.name}" ${a.name===selected?'selected':''}>${a.name}</option>`);return html}
 function render(){
-  const root=document.getElementById("fields");
-  root.innerHTML="";
-  data.fields.forEach((f,idx)=>{
-    const div=document.createElement("div");
-    div.className="field";
-    let selects="";
-    for(let i=0;i<5;i++){
-      selects+=`<select onchange="setAnimal(${idx},${i},this.value)">${animalOptions(f.animals[i]||"")}</select>`;
-    }
-    div.innerHTML=`
-      <div class="field-head">
-        <div class="field-title">${f.name}</div>
-        <div class="badge" id="badge${idx}">未セット</div>
-      </div>
-      <div class="animals">${selects}</div>
-      <div class="time-row">
-        <div class="mini"><div class="small-num" id="h${idx}">24</div><div class="label">HOUR</div></div>
-        <div class="mini"><div class="small-num" id="m${idx}">00</div><div class="label">MIN</div></div>
-      </div>
-      <div class="controls">
-        <button onclick="startField(${idx})">START</button>
-        <button onclick="stopField(${idx})">STOP</button>
-        <button onclick="resetField(${idx})">RESET</button>
-      </div>`;
-    root.appendChild(div);
-  });
-  renderHistory();
-  updateDisplay();
+ const root=document.getElementById("fields");root.innerHTML="";
+ data.fields.forEach((f,idx)=>{
+  const div=document.createElement("div");div.className="field";
+  let rows="";
+  for(let i=0;i<5;i++){
+   const a=getAnimal(f.animals[i]||"オオカミ");
+   rows+=`<div class="animal-row"><img class="thumb" id="img${idx}_${i}" src="${f.animals[i]?a.file:'icon.png'}"><select onchange="setAnimal(${idx},${i},this.value)">${animalOptions(f.animals[i]||"")}</select></div>`;
+  }
+  div.innerHTML=`
+   <div class="field-head"><div class="field-title">${f.name}</div><div class="badge" id="badge${idx}">未セット</div></div>
+   ${rows}
+   <div class="time-row">
+    <div class="mini"><div class="small-num" id="h${idx}">24</div><div class="label">HOUR</div></div>
+    <div class="mini"><div class="small-num" id="m${idx}">00</div><div class="label">MIN</div></div>
+   </div>
+   <div class="controls"><button onclick="startField(${idx})">START</button><button onclick="stopField(${idx})">STOP</button><button onclick="resetField(${idx})">RESET</button></div>`;
+  root.appendChild(div);
+ });
+ renderHistory();renderStats();
+}
+function renderStats(){
+ document.getElementById("completeCount").textContent=data.completeCount||0;
+ document.getElementById("rareCount").textContent=data.rareCount||0;
 }
 function renderHistory(){
-  const el=document.getElementById("historyList");
-  if(!data.history.length){el.textContent="まだ履歴はありません。";return}
-  el.innerHTML=data.history.slice(0,20).map(h=>`<div class="history-item">${h}</div>`).join("");
+ const el=document.getElementById("historyList");
+ if(!data.history.length){el.textContent="まだ履歴はありません。";return}
+ el.innerHTML=data.history.slice(0,40).map(h=>`<div class="history-item ${h.rare?'rare':''}">${h.text}</div>`).join("");
 }
 function setAnimal(fi,ai,val){
-  data.fields[fi].animals[ai]=val;
-  saveState();
-  if(ai===0) applyBg();
+ data.fields[fi].animals[ai]=val;
+ const img=document.getElementById(`img${fi}_${ai}`);
+ img.src=val?getAnimal(val).file:"icon.png";
+ saveState();applyBg();
 }
+function selectedNames(i){return data.fields[i].animals.filter(Boolean).join("、")||"未セット"}
 function startField(i){
-  data.fields[i].end=Date.now()+BREED_SECONDS*1000;
-  addHistory(`${nowText()} ${data.fields[i].name} 開始：${selectedNames(i)}`);
-  saveState(); updateDisplay(); notifyStatus(`${data.fields[i].name} START`);
+ data.fields[i].end=Date.now()+BREED_SECONDS*1000;
+ addHistory(`${nowText()} ${data.fields[i].name} 開始：${selectedNames(i)}`);
+ saveState();updateDisplay();notice(`${data.fields[i].name} START`);
 }
-function stopField(i){
-  data.fields[i].end=null;
-  addHistory(`${nowText()} ${data.fields[i].name} 停止`);
-  saveState(); updateDisplay(); notifyStatus(`${data.fields[i].name} STOP`);
-}
-function resetField(i){
-  data.fields[i].end=null;
-  addHistory(`${nowText()} ${data.fields[i].name} RESET`);
-  saveState(); updateDisplay(); notifyStatus(`${data.fields[i].name} RESET`);
-}
-function selectedNames(i){
-  return data.fields[i].animals.filter(Boolean).join("、") || "未セット";
-}
-function addHistory(text){
-  data.history.unshift(text);
-  data.history=data.history.slice(0,50);
-  renderHistory();
-}
-function nowText(){
-  const d=new Date();
-  return `${d.getMonth()+1}/${d.getDate()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
+function stopField(i){data.fields[i].end=null;addHistory(`${nowText()} ${data.fields[i].name} 停止`);saveState();updateDisplay();notice(`${data.fields[i].name} STOP`)}
+function resetField(i){data.fields[i].end=null;addHistory(`${nowText()} ${data.fields[i].name} RESET`);saveState();updateDisplay();notice(`${data.fields[i].name} RESET`)}
+function addHistory(text,rare=false){data.history.unshift({text,rare});data.history=data.history.slice(0,80);renderHistory()}
+function nowText(){const d=new Date();return `${d.getMonth()+1}/${d.getDate()} ${pad(d.getHours())}:${pad(d.getMinutes())}`}
 function updateDisplay(){
-  let nearest=null, active=0;
-  data.fields.forEach((f,i)=>{
-    let remain=f.end?Math.ceil((f.end-Date.now())/1000):BREED_SECONDS;
-    if(f.end && remain<=0){
-      f.end=null;
-      addHistory(`${nowText()} ${f.name} 完了：${selectedNames(i)}`);
-      alarm(`${f.name} 準備完了！`);
-      remain=0;
-      saveState();
-    }
-    if(f.end){active++; if(nearest===null || remain<nearest) nearest=remain;}
-    const t=fmt(remain);
-    document.getElementById(`h${i}`).textContent=pad(t.h);
-    document.getElementById(`m${i}`).textContent=pad(t.m);
-    const badge=document.getElementById(`badge${i}`);
-    badge.textContent=f.end?`残り ${pad(t.h)}:${pad(t.m)}:${pad(t.s)}`:"未セット";
-  });
-  const n=fmt(nearest===null?BREED_SECONDS:nearest);
-  document.getElementById("nearestH").textContent=pad(n.h);
-  document.getElementById("nearestM").textContent=pad(n.m);
-  document.getElementById("status").textContent=active?`稼働中：${active} / 3`:"24時間タイマー管理中";
+ let nearest=null,active=0;
+ data.fields.forEach((f,i)=>{
+  let remain=f.end?Math.ceil((f.end-Date.now())/1000):BREED_SECONDS;
+  if(f.end && remain<=0){
+   f.end=null;remain=0;data.completeCount=(data.completeCount||0)+1;
+   f.animals.filter(Boolean).forEach(n=>data.animalStats[n]=(data.animalStats[n]||0)+1);
+   const rare=Math.random()<0.12;
+   if(rare)data.rareCount=(data.rareCount||0)+1;
+   addHistory(`${nowText()} ${rare?'★RARE★ ':''}${f.name} 完了：${selectedNames(i)}`,rare);
+   alarm(`${f.name} 準備完了！`,rare);saveState();renderStats();
+  }
+  if(f.end){active++;if(nearest===null||remain<nearest)nearest=remain}
+  const t=fmt(remain);
+  document.getElementById(`h${i}`).textContent=pad(t.h);
+  document.getElementById(`m${i}`).textContent=pad(t.m);
+  document.getElementById(`badge${i}`).textContent=f.end?`残り ${pad(t.h)}:${pad(t.m)}:${pad(t.s)}`:"未セット";
+ });
+ const n=fmt(nearest===null?BREED_SECONDS:nearest);
+ document.getElementById("nearestH").textContent=pad(n.h);
+ document.getElementById("nearestM").textContent=pad(n.m);
+ document.getElementById("activeCount").textContent=active;
+ document.getElementById("status").textContent=active?`稼働中：${active} / 3`:"24時間タイマー管理中";
+ renderStats();
 }
-function notifyStatus(text){document.getElementById("status").textContent=text;setTimeout(updateDisplay,1200)}
+function notice(text){document.getElementById("status").textContent=text;setTimeout(updateDisplay,1200)}
 function applyBg(){
-  const hero=document.getElementById("hero");
-  if(!data.bgOn){hero.classList.add("no-bg");return}
-  hero.classList.remove("no-bg");
-  const first=data.fields.flatMap(f=>f.animals).find(Boolean)||"オオカミ";
-  const found=animals.find(a=>a[1]===first)||animals[0];
-  hero.style.backgroundImage=`linear-gradient(rgba(0,20,33,.12),rgba(30,0,45,.2)),url("${found[0]}")`;
+ const hero=document.getElementById("hero");
+ if(!data.bgOn){hero.classList.add("no-bg");return}
+ hero.classList.remove("no-bg");
+ const first=data.fields.flatMap(f=>f.animals).find(Boolean)||"オオカミ";
+ hero.style.backgroundImage=`linear-gradient(rgba(0,20,33,.18),rgba(30,0,45,.28)),url("${getAnimal(first).file}")`;
 }
-function toggleBg(){
-  data.bgOn=!data.bgOn;
-  document.getElementById("bgBtn").textContent=data.bgOn?"BG ON":"BG OFF";
-  saveState(); applyBg();
-}
+function toggleBg(){data.bgOn=!data.bgOn;document.getElementById("bgBtn").textContent=data.bgOn?"BG ON":"BG OFF";saveState();applyBg()}
 function enableSound(){
-  audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
-  audioCtx.resume();
-  data.sound=true;
-  document.getElementById("soundBtn").textContent="SOUND ON";
-  saveState();
-  beep(880,.08);
+ audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();audioCtx.resume();
+ data.sound=true;document.getElementById("soundBtn").textContent="SOUND ON";saveState();beep(880,.08);
+}
+function enableNotify(){
+ if("Notification" in window){Notification.requestPermission().then(p=>{if(p==="granted")document.getElementById("notifyBtn").textContent="NOTIFY ON"})}
+ enableSound();
 }
 function beep(freq=880,dur=.18,delay=0){
-  if(!data.sound||!audioCtx)return;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type="square"; o.frequency.value=freq;
-  g.gain.setValueAtTime(.0001,audioCtx.currentTime+delay);
-  g.gain.exponentialRampToValueAtTime(.18,audioCtx.currentTime+delay+.02);
-  g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+delay+dur);
-  o.connect(g); g.connect(audioCtx.destination);
-  o.start(audioCtx.currentTime+delay); o.stop(audioCtx.currentTime+delay+dur+.02);
+ if(!data.sound||!audioCtx)return;
+ const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="square";o.frequency.value=freq;
+ g.gain.setValueAtTime(.0001,audioCtx.currentTime+delay);
+ g.gain.exponentialRampToValueAtTime(.18,audioCtx.currentTime+delay+.02);
+ g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+delay+dur);
+ o.connect(g);g.connect(audioCtx.destination);o.start(audioCtx.currentTime+delay);o.stop(audioCtx.currentTime+delay+dur+.02);
 }
-function alarm(text){
-  const effect=document.getElementById("effect");
-  document.getElementById("effectText").textContent=text;
-  effect.classList.add("show");
-  document.getElementById("hero").classList.add("flash");
-  if(navigator.vibrate) navigator.vibrate([300,120,300,120,500]);
-  beep(740,.18,0);beep(980,.18,.22);beep(1240,.28,.44);beep(1480,.28,.78);
-  if("Notification" in window && Notification.permission==="granted"){
-    new Notification("ONCE HUMAN 繁殖タイマー",{body:text,icon:"icon.png"});
-  }
-  setTimeout(()=>{effect.classList.remove("show");document.getElementById("hero").classList.remove("flash")},5200);
-  alert(text);
+function particles(rare=false){
+ for(let i=0;i<(rare?80:38);i++){
+  const p=document.createElement("div");p.className="particle"+(rare?" rare":"");
+  p.style.left=(window.innerWidth/2)+"px";p.style.top=(window.innerHeight/2)+"px";
+  const ang=Math.random()*Math.PI*2,dist=(rare?260:170)*Math.random()+60;
+  p.style.setProperty("--x",Math.cos(ang)*dist+"px");p.style.setProperty("--y",Math.sin(ang)*dist+"px");
+  document.body.appendChild(p);setTimeout(()=>p.remove(),1200);
+ }
+}
+function alarm(text,rare=false){
+ const effect=document.getElementById("effect"),core=document.getElementById("effectText");
+ core.textContent=rare?"★ RARE ★":text;core.classList.toggle("rare",rare);
+ effect.classList.add("show");document.getElementById("hero").classList.add("flash");particles(rare);
+ if(navigator.vibrate)navigator.vibrate(rare?[500,120,500,120,800]:[300,120,300,120,500]);
+ beep(740,.18,0);beep(980,.18,.22);beep(1240,.28,.44);beep(rare?1600:1480,.32,.78);
+ if("Notification" in window&&Notification.permission==="granted")new Notification("ONCE HUMAN 繁殖タイマー",{body:rare?"★レア演出★ "+text:text,icon:"icon.png"});
+ setTimeout(()=>{effect.classList.remove("show");document.getElementById("hero").classList.remove("flash")},5200);
+ alert((rare?"★レア演出★ ":"")+text);
 }
 function gacha(){
-  const hero=document.getElementById("hero");
-  hero.classList.add("gacha");
-  setTimeout(()=>hero.classList.remove("gacha"),2300);
-  data.fields.forEach(f=>{
-    for(let i=0;i<5;i++){
-      f.animals[i]=animals[Math.floor(Math.random()*animals.length)][1];
-    }
-  });
-  addHistory(`${nowText()} ガチャで動物を自動選択`);
-  saveState(); render(); applyBg();
+ const hero=document.getElementById("hero");hero.classList.add("gacha");particles(true);
+ setTimeout(()=>hero.classList.remove("gacha"),2600);
+ data.fields.forEach(f=>{for(let i=0;i<5;i++){f.animals[i]=animals[Math.floor(Math.random()*animals.length)].name}});
+ const rare=Math.random()<0.18;if(rare)data.rareCount=(data.rareCount||0)+1;
+ addHistory(`${nowText()} ${rare?'★RARE★ ':''}ガチャで動物を自動選択`,rare);
+ saveState();render();applyBg();renderStats();
+ if(rare){enableSound();beep(1200,.2,0);beep(1600,.25,.25)}
 }
 function clearAll(){
-  if(!confirm("全タイマーと履歴をリセットしますか？"))return;
-  localStorage.removeItem("oncehumanTimerV4");
-  data={
-    tamerName:"",bgOn:true,sound:data.sound,
-    fields:[
-      {name:"繁殖場1",end:null,animals:["オオカミ","","","",""]},
-      {name:"繁殖場2",end:null,animals:["ヒョウ","","","",""]},
-      {name:"繁殖場3",end:null,animals:["ホッキョクグマ","","","",""]}
-    ],
-    history:[]
-  };
-  document.getElementById("tamerName").value="";
-  saveState(); render(); applyBg();
-}
-function requestNotification(){
-  if("Notification" in window && Notification.permission==="default") Notification.requestPermission();
+ if(!confirm("全タイマー・履歴・統計をリセットしますか？"))return;
+ localStorage.removeItem("oncehumanTimerVer7");
+ data={tamerName:"",bgOn:true,sound:data.sound,completeCount:0,rareCount:0,animalStats:{},fields:[
+  {name:"繁殖場1",end:null,animals:["オオカミ","","","",""]},
+  {name:"繁殖場2",end:null,animals:["ヒョウ","","","",""]},
+  {name:"繁殖場3",end:null,animals:["ホッキョクグマ","","","",""]}
+ ],history:[]};
+ document.getElementById("tamerName").value="";saveState();render();applyBg();
 }
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
-document.addEventListener("click",requestNotification,{once:true});
-loadState();
-timer=setInterval(updateDisplay,1000);
+loadState();timer=setInterval(updateDisplay,1000);
 </script>
 </body>
 </html>
