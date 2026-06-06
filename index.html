@@ -1,1 +1,480 @@
-<h1>ONCE HUMAN 動物繁殖タイマー</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ONCE HUMAN 動物繁殖タイマー</title>
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    :root{
+      --cyan:#00f6ff;
+      --cyan2:#78ffff;
+      --pink:#ff2aa3;
+      --purple:#b500ff;
+      --bg:#02060b;
+      --glass:rgba(0, 235, 255, .16);
+    }
+    html,body{
+      margin:0;
+      min-height:100%;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0,245,255,.18), transparent 38%),
+        radial-gradient(circle at 50% 100%, rgba(180,0,255,.22), transparent 42%),
+        #02060b;
+      color:#fff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+    body{
+      display:flex;
+      justify-content:center;
+      padding:18px 10px 28px;
+    }
+    .app{
+      width:min(430px, 100%);
+    }
+    .topbar{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      margin:2px 4px 130px;
+    }
+    .topbar button{
+      border:1px solid rgba(0,246,255,.65);
+      background:rgba(0,246,255,.08);
+      color:#baffff;
+      border-radius:12px;
+      padding:9px 14px;
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:1.5px;
+      box-shadow:0 0 14px rgba(0,246,255,.28), inset 0 0 10px rgba(0,246,255,.12);
+    }
+    .topbar button:nth-child(2){
+      border-color:rgba(255,42,163,.65);
+      background:rgba(255,42,163,.08);
+      color:#ffd5ec;
+      box-shadow:0 0 14px rgba(255,42,163,.28), inset 0 0 10px rgba(255,42,163,.12);
+    }
+    .card{
+      position:relative;
+      overflow:hidden;
+      border-radius:24px;
+      min-height:720px;
+      padding:28px 18px 22px;
+      border:2px solid rgba(0,246,255,.68);
+      box-shadow:
+        0 0 24px rgba(0,246,255,.38),
+        inset 0 0 28px rgba(0,246,255,.18);
+      background-image:
+        linear-gradient(rgba(0,20,33,.12), rgba(30,0,45,.18)),
+        url("wolf.jpg");
+      background-size:cover;
+      background-position:center;
+    }
+    .card.no-bg{
+      background-image:linear-gradient(145deg, #051823, #250034) !important;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,10,18,.14), rgba(45,0,60,.24)),
+        radial-gradient(circle at 50% 56%, transparent 0 30%, rgba(0,0,0,.16) 75%);
+      z-index:0;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size:100% 4px;
+      opacity:.18;
+      pointer-events:none;
+      z-index:1;
+    }
+    .inner{ position:relative; z-index:2; }
+    .logo{
+      text-align:center;
+      color:var(--cyan);
+      font-weight:900;
+      letter-spacing:11px;
+      font-size:18px;
+      text-shadow:0 0 14px rgba(0,246,255,.9);
+      margin-bottom:8px;
+    }
+    .title{
+      text-align:center;
+      font-size:38px;
+      line-height:1.05;
+      font-weight:1000;
+      letter-spacing:2px;
+      color:#eaffff;
+      text-shadow:0 0 16px rgba(0,246,255,.85);
+      margin-bottom:22px;
+    }
+    .status{
+      width:86%;
+      margin:0 auto 28px;
+      border:2px solid rgba(255,42,163,.75);
+      background:rgba(255,42,163,.12);
+      color:#ffd1ec;
+      border-radius:999px;
+      padding:13px 12px;
+      text-align:center;
+      font-weight:900;
+      letter-spacing:3px;
+      box-shadow:0 0 20px rgba(255,42,163,.52), inset 0 0 12px rgba(255,42,163,.2);
+    }
+    .time-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-bottom:28px;
+    }
+    .time-box{
+      height:132px;
+      border:2px solid rgba(0,246,255,.72);
+      border-radius:20px;
+      background:rgba(0,246,255,.2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      box-shadow:0 0 18px rgba(0,246,255,.3), inset 0 0 20px rgba(0,246,255,.18);
+      backdrop-filter: blur(2px);
+    }
+    .num{
+      font-size:72px;
+      line-height:.86;
+      font-weight:1000;
+      color:#eaffff;
+      text-shadow:0 0 16px rgba(0,246,255,.9);
+      font-variant-numeric: tabular-nums;
+    }
+    .label{
+      margin-top:12px;
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:3px;
+      color:#d9ffff;
+      opacity:.95;
+    }
+    .selector{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-bottom:30px;
+    }
+    .panel{
+      min-height:122px;
+      border:2px solid rgba(181,0,255,.78);
+      border-radius:18px;
+      background:rgba(90,0,150,.22);
+      box-shadow:0 0 18px rgba(181,0,255,.46), inset 0 0 16px rgba(181,0,255,.16);
+      padding:16px 10px 12px;
+      backdrop-filter: blur(2px);
+    }
+    .panel h3{
+      margin:0 0 16px;
+      text-align:center;
+      font-size:15px;
+      font-weight:1000;
+      color:#fff;
+      text-shadow:0 0 10px rgba(255,255,255,.35);
+    }
+    .stepper{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .stepper button{
+      width:43px;
+      height:43px;
+      border-radius:50%;
+      border:0;
+      background:rgba(117,0,160,.92);
+      color:#ffb6ff;
+      font-size:27px;
+      font-weight:1000;
+      box-shadow:0 0 18px rgba(200,0,255,.72);
+    }
+    .stepper span{
+      min-width:38px;
+      text-align:center;
+      font-size:46px;
+      line-height:1;
+      font-weight:1000;
+      text-shadow:0 0 10px rgba(255,255,255,.4);
+      font-variant-numeric: tabular-nums;
+    }
+    .spawn{
+      border:2px solid rgba(181,0,255,.86);
+      border-radius:24px;
+      background:rgba(70,0,120,.28);
+      box-shadow:0 0 22px rgba(181,0,255,.6), inset 0 0 22px rgba(181,0,255,.18);
+      padding:22px 15px 16px;
+      backdrop-filter: blur(2px);
+    }
+    .spawn-title{
+      text-align:center;
+      font-size:23px;
+      font-weight:1000;
+      margin-bottom:20px;
+      text-shadow:0 0 14px rgba(255,255,255,.4);
+    }
+    .mini-grid{
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      margin-bottom:18px;
+    }
+    .mini{
+      width:106px;
+      height:90px;
+      border:2px solid rgba(220,70,255,.8);
+      border-radius:18px;
+      background:rgba(155,0,255,.34);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      box-shadow:0 0 18px rgba(220,0,255,.72), inset 0 0 18px rgba(255,255,255,.08);
+    }
+    .mini .small-num{
+      font-size:44px;
+      line-height:.86;
+      font-weight:1000;
+      text-shadow:0 0 14px rgba(255,255,255,.45);
+      font-variant-numeric: tabular-nums;
+    }
+    .buttons{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:10px;
+      margin-bottom:14px;
+    }
+    .buttons button{
+      border-radius:13px;
+      border:1px solid rgba(0,246,255,.7);
+      background:rgba(0,246,255,.12);
+      color:#dfffff;
+      padding:12px 6px;
+      font-weight:1000;
+      letter-spacing:1px;
+      box-shadow:0 0 14px rgba(0,246,255,.26);
+    }
+    .buttons button:nth-child(2){
+      border-color:rgba(255,42,163,.72);
+      background:rgba(255,42,163,.12);
+      color:#ffd5ec;
+      box-shadow:0 0 14px rgba(255,42,163,.28);
+    }
+    select{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(0,246,255,.72);
+      background:rgba(0,18,28,.88);
+      color:white;
+      padding:13px 12px;
+      font-size:16px;
+      font-weight:800;
+      box-shadow:0 0 13px rgba(0,246,255,.18);
+    }
+    .hint{
+      text-align:center;
+      color:rgba(230,255,255,.8);
+      font-size:12px;
+      margin-top:12px;
+      line-height:1.5;
+    }
+    @media (max-width:380px){
+      .title{ font-size:34px; }
+      .num{ font-size:64px; }
+      .time-box{ height:120px; }
+      .spawn-title{ font-size:21px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="topbar">
+      <button id="bgBtn" onclick="toggleBg()">BG ON</button>
+      <button onclick="resetTimer()">CLEAR</button>
+    </div>
+
+    <section class="card" id="card">
+      <div class="inner">
+        <div class="logo">ONCE HUMAN</div>
+        <div class="title">動物繁殖<br>タイマー</div>
+        <div class="status" id="status">繁殖タイマー 起動中</div>
+
+        <div class="time-grid">
+          <div class="time-box">
+            <div class="num" id="mainMin">15</div>
+            <div class="label">MIN</div>
+          </div>
+          <div class="time-box">
+            <div class="num" id="mainSec">00</div>
+            <div class="label">SEC</div>
+          </div>
+        </div>
+
+        <div class="selector">
+          <div class="panel">
+            <h3>繁殖場</h3>
+            <div class="stepper">
+              <button onclick="changeField(-1)">-</button>
+              <span id="field">1</span>
+              <button onclick="changeField(1)">+</button>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>動物数</h3>
+            <div class="stepper">
+              <button onclick="changeCount(-1)">-</button>
+              <span id="count">1</span>
+              <button onclick="changeCount(1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spawn">
+          <div class="spawn-title"><span id="animalName">オオカミ</span> 出現まで</div>
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="small-num" id="spawnMin">15</div>
+              <div class="label">MIN</div>
+            </div>
+            <div class="mini">
+              <div class="small-num" id="spawnSec">00</div>
+              <div class="label">SEC</div>
+            </div>
+          </div>
+
+          <div class="buttons">
+            <button onclick="startTimer()">START</button>
+            <button onclick="pauseTimer()">STOP</button>
+            <button onclick="resetTimer()">RESET</button>
+          </div>
+
+          <select id="animalSelect" onchange="changeAnimal()">
+            <option value="wolf.jpg|オオカミ|1">繁殖場1：オオカミ</option>
+            <option value="leopard.jpg|ヒョウ|2">繁殖場2：ヒョウ</option>
+            <option value="polarbear.jpg|ホッキョクグマ|3">繁殖場3：ホッキョクグマ</option>
+          </select>
+
+          <div class="hint">
+            画像を使う場合は、このHTMLと同じ場所に<br>
+            wolf.jpg / leopard.jpg / polarbear.jpg をアップロードしてください。
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let totalSeconds = 15 * 60;
+    let timer = null;
+    let field = 1;
+    let count = 1;
+    let bgOn = true;
+
+    const card = document.getElementById("card");
+    const bgBtn = document.getElementById("bgBtn");
+
+    function pad(n){ return String(n).padStart(2, "0"); }
+
+    function updateDisplay(){
+      const min = Math.floor(totalSeconds / 60);
+      const sec = totalSeconds % 60;
+
+      document.getElementById("mainMin").textContent = pad(min);
+      document.getElementById("mainSec").textContent = pad(sec);
+      document.getElementById("spawnMin").textContent = pad(min);
+      document.getElementById("spawnSec").textContent = pad(sec);
+
+      if(totalSeconds <= 0){
+        document.getElementById("status").textContent = "出現しました！";
+      }
+    }
+
+    function startTimer(){
+      if(timer) return;
+      document.getElementById("status").textContent = "繁殖タイマー 起動中";
+      timer = setInterval(() => {
+        if(totalSeconds > 0){
+          totalSeconds--;
+          updateDisplay();
+        } else {
+          clearInterval(timer);
+          timer = null;
+          alert(document.getElementById("animalName").textContent + " が出現しました！");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer(){
+      clearInterval(timer);
+      timer = null;
+      document.getElementById("status").textContent = "一時停止中";
+    }
+
+    function resetTimer(){
+      clearInterval(timer);
+      timer = null;
+      totalSeconds = 15 * 60;
+      document.getElementById("status").textContent = "繁殖タイマー 起動中";
+      updateDisplay();
+    }
+
+    function changeField(v){
+      field = Math.min(3, Math.max(1, field + v));
+      document.getElementById("field").textContent = field;
+      document.getElementById("animalSelect").selectedIndex = field - 1;
+      changeAnimal(false);
+    }
+
+    function changeCount(v){
+      count = Math.min(10, Math.max(1, count + v));
+      document.getElementById("count").textContent = count;
+    }
+
+    function changeAnimal(resetField = true){
+      const value = document.getElementById("animalSelect").value;
+      const parts = value.split("|");
+      const image = parts[0];
+      const name = parts[1];
+      const selectedField = Number(parts[2]);
+
+      document.getElementById("animalName").textContent = name;
+
+      if(resetField){
+        field = selectedField;
+        document.getElementById("field").textContent = field;
+      }
+
+      if(bgOn){
+        card.classList.remove("no-bg");
+        card.style.backgroundImage =
+          'linear-gradient(rgba(0,20,33,.12), rgba(30,0,45,.18)), url("' + image + '")';
+      }
+    }
+
+    function toggleBg(){
+      bgOn = !bgOn;
+      bgBtn.textContent = bgOn ? "BG ON" : "BG OFF";
+
+      if(bgOn){
+        changeAnimal(false);
+      }else{
+        card.classList.add("no-bg");
+      }
+    }
+
+    updateDisplay();
+  </script>
+</body>
+</html>
